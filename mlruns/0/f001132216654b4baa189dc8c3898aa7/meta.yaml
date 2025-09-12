@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/dhruv/Desktop/EngineSentinel/mlruns/0/f001132216654b4baa189dc8c3898aa7/artifacts
+end_time: 1757717970700
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f001132216654b4baa189dc8c3898aa7
+run_name: salty-hawk-631
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757717969333
+status: 3
+tags: []
+user_id: dhruv

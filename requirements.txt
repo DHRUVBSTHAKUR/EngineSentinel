@@ -25,3 +25,4 @@ uvicorn
 
 #For managing environment variables
 python-dotenv
+dill

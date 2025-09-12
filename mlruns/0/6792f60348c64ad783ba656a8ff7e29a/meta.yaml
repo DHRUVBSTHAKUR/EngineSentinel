@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/dhruv/Desktop/EngineSentinel/mlruns/0/6792f60348c64ad783ba656a8ff7e29a/artifacts
+end_time: 1757717696610
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6792f60348c64ad783ba656a8ff7e29a
+run_name: magnificent-dove-924
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757717695217
+status: 3
+tags: []
+user_id: dhruv
