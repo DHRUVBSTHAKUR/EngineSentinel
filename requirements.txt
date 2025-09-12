@@ -1,0 +1,27 @@
+#Core libraries for data handling and modeling
+pandas
+numpy
+scikit-learn
+
+#Advanced modeling algorithms
+xgboost
+lightgbm
+
+#Data visualization
+matplotlib
+seaborn
+
+#Experiment tracking and model interpretability
+mlflow
+shap
+
+#For running notebooks and deep EDA
+jupyterlab
+sweetviz
+
+#For API development (we'll use this later)
+fastapi
+uvicorn
+
+#For managing environment variables
+python-dotenv
