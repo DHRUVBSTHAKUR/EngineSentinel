@@ -31,3 +31,12 @@ def load_object(file_path):
             
     except Exception as e:
         raise CustomException(e, sys)
+
+# --- Hyperparameter Grid for LightGBM ---
+# Centralizing this configuration makes it easier to manage and reuse.
+LGBM_PARAM_GRID = {
+    'n_estimators': [100, 200],
+    'learning_rate': [0.05, 0.1],
+    'num_leaves': [20, 31]
+}
+

@@ -1,0 +1,10 @@
+artifact_location: file:///Users/dhruv/Desktop/EngineSentinel/mlruns/0/models/m-5cfd128d3cf74b608c4b855005486051/artifacts
+creation_timestamp: 1757752865248
+experiment_id: '0'
+last_updated_timestamp: 1757752866890
+model_id: m-5cfd128d3cf74b608c4b855005486051
+model_type: null
+name: model
+source_run_id: e2d36664b8194a818fca30b441a87dfc
+status: 2
+status_message: null

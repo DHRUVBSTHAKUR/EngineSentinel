@@ -4,12 +4,12 @@ from dataclasses import dataclass
 
 import pandas as pd
 from lightgbm import LGBMRegressor
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import r2_score
 
 from src.engine_sentinel.exception import CustomException
 from src.engine_sentinel.logger import logger
-from src.engine_sentinel.utils import save_object
+from src.engine_sentinel.utils import save_object, LGBM_PARAM_GRID # <-- UPDATED IMPORT
 
 @dataclass
 class ModelTrainerConfig:
@@ -21,20 +21,20 @@ class ModelTrainerConfig:
 
 class ModelTrainer:
     """
-    Handles the model training, evaluation, and saving process.
+    Handles model training with hyperparameter tuning, evaluation, and saving.
     """
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
 
     def initiate_model_trainer(self, transformed_data_path: str):
         """
-        Orchestrates the model training process.
+        Orchestrates the model training and tuning process.
         
         Args:
             transformed_data_path (str): Path to the processed data from the transformation step.
         """
         try:
-            logger.info("Starting model training process")
+            logger.info("--- Model Trainer Component Started ---")
             df = pd.read_csv(transformed_data_path)
             logger.info(f"Loaded transformed data from {transformed_data_path}")
 
@@ -47,22 +47,44 @@ class ModelTrainer:
                 X, y, test_size=0.2, random_state=42
             )
 
-            # We are using LightGBM as it was one of the best performers in our notebook
-            lgbm = LGBMRegressor(n_estimators=100, random_state=42, n_jobs=-1)
-            
-            logger.info("Training LightGBM model...")
-            lgbm.fit(X_train, y_train)
-            logger.info("Model training complete")
-            
-            # Evaluate the model on the test set
-            y_pred = lgbm.predict(X_test)
-            score = r2_score(y_test, y_pred)
-            logger.info(f"Model evaluated. R² Score on test set: {score:.2f}")
+            # --- HYPERPARAMETER TUNING SETUP ---
+            lgbm = LGBMRegressor(random_state=42, n_jobs=-1)
 
-            logger.info(f"Saving the trained model to: {self.model_trainer_config.trained_model_file_path}")
+            # The parameter grid is now imported from utils.py
+            param_grid = LGBM_PARAM_GRID
+
+            # Create the GridSearchCV object
+            # cv=3 means 3-fold cross-validation
+            grid_search = GridSearchCV(
+                estimator=lgbm,
+                param_grid=param_grid,
+                cv=3,
+                scoring='r2',
+                verbose=1,
+                n_jobs=-1
+            )
+            
+            logger.info("Starting Hyperparameter Tuning (Grid Search)...")
+            # This will train the model multiple times to find the best settings
+            grid_search.fit(X_train, y_train)
+            logger.info("Hyperparameter Tuning complete.")
+
+            # Get the best model found by the grid search
+            best_lgbm = grid_search.best_estimator_
+            
+            logger.info(f"Best parameters found: {grid_search.best_params_}")
+            
+            # --- END OF HYPERPARAMETER TUNING ---
+
+            # Evaluate the BEST model on the test set
+            y_pred = best_lgbm.predict(X_test)
+            score = r2_score(y_test, y_pred)
+            logger.info(f"Tuned model evaluated. R² Score on test set: {score:.2f}")
+
+            logger.info(f"Saving the best trained model to: {self.model_trainer_config.trained_model_file_path}")
             save_object(
                 file_path=self.model_trainer_config.trained_model_file_path,
-                obj=lgbm
+                obj=best_lgbm  # Save the best model
             )
             
             logger.info("Trained model object saved successfully")
