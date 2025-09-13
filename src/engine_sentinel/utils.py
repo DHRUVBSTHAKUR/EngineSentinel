@@ -24,11 +24,19 @@ def save_object(file_path, obj):
 def load_object(file_path):
     """
     This function loads a Python object from a file using dill.
+    It now includes enhanced error handling to provide more specific
+    information about the failure.
     """
     try:
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"File not found: {file_path}")
+
         with open(file_path, "rb") as file_obj:
-            return dill.load(file_obj)
-            
+            obj = dill.load(file_obj)
+            return obj
+    except dill.UnpicklingError as e:
+        logging.error(f"Error loading object from {file_path}: {e}")
+        raise CustomException(f"Failed to load object from file: Corrupted file or incompatible dill version", sys)
     except Exception as e:
         raise CustomException(e, sys)
 
@@ -39,4 +47,3 @@ LGBM_PARAM_GRID = {
     'learning_rate': [0.05, 0.1],
     'num_leaves': [20, 31]
 }
-
