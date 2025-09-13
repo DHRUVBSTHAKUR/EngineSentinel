@@ -149,12 +149,14 @@ R² Score on Test Set: ~0.62
 This indicates that the model can explain approximately 62% of the variance in the engine's RUL, providing a solid foundation for a predictive maintenance system.
 
 🔮 Future Work
-This project provides a robust foundation. Future improvements could include:
+This project provides a robust foundation. Now that hyperparameter tuning has been completed and a web application has been developed, future improvements could include:
 
-Hyperparameter Tuning: Use tools like Optuna or GridSearchCV to find the optimal settings for the LightGBM model to improve its accuracy.
+Containerization: 🐳 Dockerize the entire application, including the web app and the prediction API, to ensure it runs consistently across different environments and simplifies deployment.
 
-Web Application: Build a user-friendly web interface using FastAPI or Flask that uses the prediction_pipeline.py to allow users to input sensor data and get a real-time RUL prediction.
+Cloud Deployment: ☁️ Deploy the containerized prediction API and web application to a cloud platform like AWS, Azure, or Google Cloud. This will create a scalable and globally accessible service.
 
-Containerization: Dockerize the entire application for easy, reproducible deployment.
+Advanced Time-Series Modeling: Explore more sophisticated models designed specifically for time-series data, such as Long Short-Term Memory (LSTM) networks or Transformer-based models. This could potentially capture more complex temporal dependencies and improve prediction accuracy.
 
-Cloud Deployment: Deploy the prediction API as a serverless function on AWS Lambda or Azure Functions for a scalable, cost-effective solution.
+Real-time Data Streaming: Implement a data streaming architecture using tools like Apache Kafka or AWS Kinesis to handle real-time sensor data from engines, enabling live RUL predictions rather than batch processing.
+
+A/B Testing & Monitoring: Set up a robust MLOps pipeline to monitor model performance in production, detect data drift, and perform A/B testing on new model versions to ensure continuous improvement.
