@@ -3,6 +3,7 @@ import pandas as pd
 from src.engine_sentinel.exception import CustomException
 from src.engine_sentinel.utils import load_object
 from src.engine_sentinel.logger import logger
+import os
 
 class PredictionPipeline:
     """
@@ -22,7 +23,14 @@ class PredictionPipeline:
             np.ndarray: The predicted RUL value(s) in a numpy array.
         """
         try:
-            model_path = 'artifacts/model.pkl'
+            # Construct the absolute path to the model file
+            base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            model_path = os.path.join(base_dir, 'artifacts', 'model.pkl')
+
+            # Check if the file exists before attempting to load
+            if not os.path.exists(model_path):
+                raise FileNotFoundError(f"Model file not found at: {model_path}")
+
             model = load_object(file_path=model_path)
             logger.info("Trained model loaded successfully for prediction.")
             
@@ -113,4 +121,3 @@ class CustomData:
 
         except Exception as e:
             raise CustomException(e, sys)
-
