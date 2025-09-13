@@ -2,6 +2,7 @@
 pandas
 numpy
 scikit-learn
+joblib 
 
 #Advanced modeling algorithms
 xgboost
@@ -22,6 +23,7 @@ sweetviz
 #For API development (we'll use this later)
 fastapi
 uvicorn
+gunicorn 
 
 #For managing environment variables
 python-dotenv
