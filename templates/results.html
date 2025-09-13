@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .result-container {
+            background-color: white;
+            padding: 3em;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .result {
+            font-size: 3em;
+            font-weight: bold;
+            color: #e67e22; /* Changed to orange */
+            margin: 0.5em 0;
+        }
+        .subtext {
+            color: #7f8c8d;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2em;
+            padding: 0.8em 1.5em;
+            background-color: #e67e22; /* Changed to orange */
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+        .back-link:hover {
+            background-color: #d35400; /* Changed to darker orange */
+        }
+    </style>
+</head>
+<body>
+
+<div class="result-container">
+    <h1>Prediction Result</h1>
+    <p class="subtext">The model predicts the engine has a</p>
+    <div class="result">{{ results }}</div>
+    <p class="subtext">Remaining Useful Life (RUL) in cycles.</p>
+    <a href="/" class="back-link">Make Another Prediction</a>
+</div>
+
+</body>
+</html>
+
