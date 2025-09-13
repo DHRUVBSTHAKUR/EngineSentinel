@@ -1,21 +1,12 @@
-import sys
-from pathlib import Path
 import os
-
-# --- THE FIX IS HERE ---
-# This block adds your project's 'src' directory to Python's path
-# It makes your 'engine_sentinel' package importable
-project_root = Path(__file__).resolve().parent
-src_path = os.path.join(project_root, 'src')
-sys.path.insert(0, src_path)
-print(f"DEBUG: Added the following path to sys.path -> {src_path}") # For verification
-# --- END OF FIX ---
+import sys
 
 from flask import Flask, request, render_template
 import numpy as np
 import pandas as pd
 
-# Corrected the import statement to match the file name 'predict_pipeline.py'
+# The project's 'src' directory is now automatically on the Python path
+# due to the 'setup.py' file. The manual fix is no longer needed.
 from engine_sentinel.pipeline.predict_pipeline import CustomData, PredictionPipeline
 
 # Create a Flask application instance
